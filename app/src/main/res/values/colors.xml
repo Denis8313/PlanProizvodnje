@@ -8,4 +8,5 @@
     <color name="colorHighPriority">#FF0000</color>
     <color name="colorMidiumPriority">#DF7401</color>
     <color name="colorLowPriority">#F7FE2E</color>
+    <color name="textColor">#FFFFFF</color>
 </resources>

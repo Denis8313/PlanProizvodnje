@@ -1,7 +1,9 @@
 package com.example.denis.planproizvodnje;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,30 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         holder.taskDescriptionView.setText(description);
         holder.updateAtView.setText(date);
         holder.priorityView.setText(priorityString);
+
+        GradientDrawable priorityShape = (GradientDrawable) holder.priorityView.getBackground();
+
+        int priorityShapeColor = getPriorityShapeColor(priority);
+        priorityShape.setColor(priorityShapeColor);
+    }
+
+    private int getPriorityShapeColor(int priority) {
+        int priorityColor = 0;
+
+        switch (priority) {
+            case 1:
+                priorityColor = ContextCompat.getColor(mContext, R.color.colorHighPriority);
+                break;
+            case 2:
+                priorityColor = ContextCompat.getColor(mContext, R.color.colorMidiumPriority);
+                break;
+            case 3:
+                priorityColor = ContextCompat.getColor(mContext, R.color.colorLowPriority);
+                break;
+                default:
+                    break;
+        }
+        return priorityColor;
     }
 
     @Override

@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.denis.planproizvodnje.database.AppDatabase;
+import com.example.denis.planproizvodnje.database.TaskEntry;
+
 import java.util.Date;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -21,6 +24,8 @@ public class AddTaskActivity extends AppCompatActivity {
     private EditText taskDescription;
     private RadioGroup mRadioGroup;
 
+    private AppDatabase mDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +35,8 @@ public class AddTaskActivity extends AppCompatActivity {
         taskDescription = (EditText) findViewById(R.id.task_edit_text);
         mRadioGroup = (RadioGroup) findViewById(R.id.priority_radio_group);
 
+        mDb = AppDatabase.getsInstance(getApplicationContext());
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,6 +44,9 @@ public class AddTaskActivity extends AppCompatActivity {
                 int taskPriority = getPriorityFromViews();
                 Date date = new Date();
 
+                TaskEntry taskEntry = new TaskEntry(addTaskDescription, taskPriority, date);
+                mDb.taskDao().insertTask(taskEntry);
+                finish();
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.denis.planproizvodnje.database;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
@@ -17,6 +18,7 @@ public class TaskEntry {
     private int id;
     private String taskDescription;
     private int priority;
+    @ColumnInfo(name = "update_at")
     private Date date;
 
     @Ignore

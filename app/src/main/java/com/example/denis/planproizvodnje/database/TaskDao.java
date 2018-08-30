@@ -1,5 +1,6 @@
 package com.example.denis.planproizvodnje.database;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Insert;
@@ -10,7 +11,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 // Create Dao or data access object for all entities
-@Entity
+@Dao
 public interface TaskDao {
 
     @Query("SELECT * FROM task ORDER BY priority")

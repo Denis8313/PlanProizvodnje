@@ -31,6 +31,11 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        initViews();
+    }
+
+    private void initViews() {
+
         addButton = (Button) findViewById(R.id.add_task_button);
         taskDescription = (EditText) findViewById(R.id.task_edit_text);
         mRadioGroup = (RadioGroup) findViewById(R.id.priority_radio_group);
@@ -40,15 +45,19 @@ public class AddTaskActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String addTaskDescription = taskDescription.getText().toString();
-                int taskPriority = getPriorityFromViews();
-                Date date = new Date();
-
-                TaskEntry taskEntry = new TaskEntry(addTaskDescription, taskPriority, date);
-                mDb.taskDao().insertTask(taskEntry);
-                finish();
+                onSaveButtonClicked();
             }
         });
+    }
+
+    private void onSaveButtonClicked() {
+        String addTaskDescription = taskDescription.getText().toString();
+        int taskPriority = getPriorityFromViews();
+        Date date = new Date();
+
+        TaskEntry taskEntry = new TaskEntry(addTaskDescription, taskPriority, date);
+        mDb.taskDao().insertTask(taskEntry);
+        finish();
     }
 
     //Get priority from checkbox

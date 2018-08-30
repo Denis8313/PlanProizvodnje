@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    //colors for priority
+    <color name="colorHighPriority">#FF0000</color>
+    <color name="colorMidiumPriority">#DF7401</color>
+    <color name="colorLowPriority">#F7FE2E</color>
 </resources>

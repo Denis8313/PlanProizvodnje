@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Plan Proizvodnje</string>
+    
+    //strings for priority
+    <string name="taskPriority">Odaberi razinu prioriteta za upisani zadatak</string>
+    <string name="high_priority">Visoka razina</string>
+    <string name="medium_priority">Srednja razina</string>
+    <string name="low_priority">Niska razina</string>
+
+    //strings in activity_add_task
+    <string name="new_task_edit_text">Upiši novi zadatak</string>
+    <string name="add_task_button">Dodaj novi zadatak</string>
+
+    <string name="add_task_activity">Upis novog zadatka</string>
 </resources>

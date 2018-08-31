@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.denis.planproizvodnje.database.AppDatabase;
+import com.example.denis.planproizvodnje.database.TaskEntry;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +53,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mAdapter.setTask(mDb.taskDao().loadAllTasks());
+        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final List<TaskEntry> taskEntries = mDb.taskDao().loadAllTasks();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setTask(taskEntries);
+                    }
+                });
+
+            }
+        });
     }
 }

@@ -55,9 +55,16 @@ public class AddTaskActivity extends AppCompatActivity {
         int taskPriority = getPriorityFromViews();
         Date date = new Date();
 
-        TaskEntry taskEntry = new TaskEntry(addTaskDescription, taskPriority, date);
-        mDb.taskDao().insertTask(taskEntry);
-        finish();
+
+        final TaskEntry taskEntry = new TaskEntry(addTaskDescription, taskPriority, date);
+        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mDb.taskDao().insertTask(taskEntry);
+                finish();
+            }
+        });
+
     }
 
     //Get priority from checkbox

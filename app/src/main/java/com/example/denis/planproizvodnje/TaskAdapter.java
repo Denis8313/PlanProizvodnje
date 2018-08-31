@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.denis.planproizvodnje.database.TaskEntry;
@@ -21,13 +22,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     private static final String DATE_FORMAT = "dd/MM/yyy";
     private Context mContext;
 
+    private final ItemClickListener mItemClickListener;
+
     private List<TaskEntry> taskEntries;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
 
     //Constructor for task adapter
-    public TaskAdapter(Context context) {
+    public TaskAdapter(Context context, ItemClickListener clickListener) {
         mContext = context;
+        mItemClickListener = clickListener;
     }
 
     @NonNull
@@ -94,7 +98,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         notifyDataSetChanged();
     }
 
-    public class TaskViewHolder extends RecyclerView.ViewHolder {
+    public interface ItemClickListener {
+        void onItemClickListener(int itemId);
+    }
+
+    public class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView taskDescriptionView;
         TextView updateAtView;
@@ -106,6 +114,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskDescriptionView = (TextView) itemView.findViewById(R.id.task_description_textview);
             updateAtView = (TextView) itemView.findViewById(R.id.date_textview);
             priorityView = (TextView) itemView.findViewById(R.id.priority_textview);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int elementId = taskEntries.get(getAdapterPosition()).getId();
+            mItemClickListener.onItemClickListener(elementId);
         }
     }
 }

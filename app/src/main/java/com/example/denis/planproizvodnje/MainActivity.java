@@ -15,7 +15,7 @@ import com.example.denis.planproizvodnje.database.TaskEntry;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener{
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mAdapter = new TaskAdapter(this);
+        mAdapter = new TaskAdapter(this, this);
 
         mRecyclerView.setAdapter(mAdapter);
 
@@ -94,5 +94,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
     });
+    }
+
+    @Override
+    public void onItemClickListener(int itemId) {
+        // open new activity with id as extra parametar
+        Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+        intent.putExtra(AddTaskActivity.EXTRA_TASK_ID, itemId);
+        startActivity(intent);
     }
 }

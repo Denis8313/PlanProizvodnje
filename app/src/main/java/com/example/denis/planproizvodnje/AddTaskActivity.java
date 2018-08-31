@@ -1,5 +1,6 @@
 package com.example.denis.planproizvodnje;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +16,16 @@ import java.util.Date;
 
 public class AddTaskActivity extends AppCompatActivity {
 
+    //Constant for loging
+    private static final String TAG = AddTaskActivity.class.getSimpleName();
+
     //Constants for priority
     public static final int HIGH_PRIORITY = 1;
     public static final int MEDIUM_PRIORITY = 2;
     public static final int LOW_PRIORTY = 3;
+
+    // Extra for task id to be receved in the intent
+    public static final String EXTRA_TASK_ID = "extraTaskId";
 
     private Button addButton;
     private EditText taskDescription;
@@ -26,12 +33,39 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private AppDatabase mDb;
 
+    // Constant for task id when wee are not in update mode
+    private static final int DEFAOULT_TASK_ID = -1;
+
+    private int mTaskId = DEFAOULT_TASK_ID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
         initViews();
+
+        Intent intent = getIntent();
+        if(intent != null && intent.hasExtra(EXTRA_TASK_ID)) {
+            addButton.setText("Obnovi zadatak");
+            if(mTaskId == DEFAOULT_TASK_ID) {
+                // Populate the UI
+                mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAOULT_TASK_ID);
+                AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        final TaskEntry task = mDb.taskDao().loadTaskById(mTaskId);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                populateUI(task);
+                            }
+                        });
+
+                    }
+                });
+            }
+        }
     }
 
     private void initViews() {
@@ -60,7 +94,14 @@ public class AddTaskActivity extends AppCompatActivity {
         AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
-                mDb.taskDao().insertTask(taskEntry);
+                if (mTaskId == DEFAOULT_TASK_ID) {
+                    mDb.taskDao().insertTask(taskEntry);
+                }else
+                {
+                    //update task
+                    taskEntry.setId(mTaskId);
+                    mDb.taskDao().updateTask(taskEntry);
+                }
                 finish();
             }
         });
@@ -98,5 +139,13 @@ public class AddTaskActivity extends AppCompatActivity {
             case LOW_PRIORTY:
                 (mRadioGroup).check(R.id.low_priority);
         }
+    }
+
+    private void populateUI(TaskEntry task) {
+        if(task == null) {
+            return;
+        }
+        taskDescription.setText(task.getTaskDescription());
+        setPriorityInViews(task.getPriority());
     }
 }

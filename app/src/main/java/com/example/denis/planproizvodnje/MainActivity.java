@@ -1,7 +1,7 @@
 package com.example.denis.planproizvodnje;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -78,17 +78,16 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
             }
         }).attachToRecyclerView(mRecyclerView);
 
-        retrieveTasks();
+        setupViewModel();
     }
 
-    private void retrieveTasks() {
+    private void setupViewModel() {
 
-        Log.d(TAG, "Actively retrieving the tasks from the DataBase");
-        final LiveData<List<TaskEntry>> taskEntries = mDb.taskDao().loadAllTasks();
-        taskEntries.observe(this, new Observer<List<TaskEntry>>() {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getTasks().observe(this, new Observer<List<TaskEntry>>() {
             @Override
             public void onChanged(@Nullable List<TaskEntry> taskEntries) {
-                Log.d(TAG, "Recieving database update from LiveData");
+                Log.d(TAG, "Recieving database update from LiveData in ViewModel");
                 mAdapter.setTask(taskEntries);
             }
         });

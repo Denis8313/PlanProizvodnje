@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.example.denis.planproizvodnje.database.AppDatabase;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
+
 
     private AppDatabase mDb;
 
@@ -48,23 +50,49 @@ public class MainActivity extends AppCompatActivity {
 
         DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(decoration);
+
+        // Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(1, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+                //Implement swipe to delete
+                AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        int positionOfItem = viewHolder.getAdapterPosition();
+                        List<TaskEntry> taskEntries = mAdapter.getTask();
+                        mDb.taskDao().deleteTask(taskEntries.get(positionOfItem));
+                        retrieveTasks();
+                    }
+                });
+            }
+        }).attachToRecyclerView(mRecyclerView);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                final List<TaskEntry> taskEntries = mDb.taskDao().loadAllTasks();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.setTask(taskEntries);
-                    }
-                });
+        retrieveTasks();
+    }
 
-            }
-        });
+    private void retrieveTasks() {
+        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+        @Override
+        public void run() {
+            final List<TaskEntry> taskEntries = mDb.taskDao().loadAllTasks();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mAdapter.setTask(taskEntries);
+                }
+            });
+
+        }
+    });
     }
 }

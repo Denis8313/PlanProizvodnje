@@ -1,6 +1,9 @@
 package com.example.denis.planproizvodnje;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 
 import com.example.denis.planproizvodnje.database.AppDatabase;
@@ -16,6 +20,8 @@ import com.example.denis.planproizvodnje.database.TaskEntry;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemClickListener{
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mAdapter;
@@ -67,33 +73,25 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
                         int positionOfItem = viewHolder.getAdapterPosition();
                         List<TaskEntry> taskEntries = mAdapter.getTask();
                         mDb.taskDao().deleteTask(taskEntries.get(positionOfItem));
-                        retrieveTasks();
                     }
                 });
             }
         }).attachToRecyclerView(mRecyclerView);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         retrieveTasks();
     }
 
     private void retrieveTasks() {
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-        @Override
-        public void run() {
-            final List<TaskEntry> taskEntries = mDb.taskDao().loadAllTasks();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mAdapter.setTask(taskEntries);
-                }
-            });
 
-        }
-    });
+        Log.d(TAG, "Actively retrieving the tasks from the DataBase");
+        final LiveData<List<TaskEntry>> taskEntries = mDb.taskDao().loadAllTasks();
+        taskEntries.observe(this, new Observer<List<TaskEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<TaskEntry> taskEntries) {
+                Log.d(TAG, "Recieving database update from LiveData");
+                mAdapter.setTask(taskEntries);
+            }
+        });
     }
 
     @Override

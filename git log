@@ -1,0 +1,101 @@
+[33mcommit 5ab042b2279eab7a2e443ba190e8ae4862174ef0[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Denis <ka_bum@live.com>
+Date:   Fri Aug 31 15:25:58 2018 +0200
+
+    Update task
+
+[33mcommit d33fea6551ac4991353a2495c31ce26b50d195ef[m
+Author: Denis <ka_bum@live.com>
+Date:   Fri Aug 31 14:34:46 2018 +0200
+
+    including swipe to delete logic
+    
+    Add touch helper to recognize whe a user swipes to delete an item
+
+[33mcommit 41cf72186a5935898b088597d219103104221ca0[m
+Author: Denis <ka_bum@live.com>
+Date:   Fri Aug 31 13:58:29 2018 +0200
+
+    delete allowMainThreadQueries() from AppDatabase
+    make AppExecutors.class and implement into AddTaskActivity and MainActivity
+
+[33mcommit 5d13cbb728ac5775f7a31352eae3c68512187608[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 22:02:28 2018 +0200
+
+    including custom background color of shape for level of priority
+
+[33mcommit cc32b9feaea3ccd8f999ecf067d45fc0feafd763[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 21:44:10 2018 +0200
+
+    Refactor code into two new void methods in AddTaskActivity
+
+[33mcommit 53cd790616dd91e393371b3a77817b812349e562[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 21:31:36 2018 +0200
+
+    Correcting annotiation in TaskDao
+    Make Recyclerview Adapter(TaskAdapter.class, correct activity_main.xml and make task_view.xml)
+    Query alltask in MainActivity
+
+[33mcommit 51fb1b6f0d6f82f375b8299d3aefde40c093e518[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 21:30:52 2018 +0200
+
+    Correcting annotiation in TaskDao
+    Make Recyclerview Adapter(TaskAdapter.class, correct activity_main.xml and make task_view.xml)
+    Query alltask in MainActivity
+
+[33mcommit ec8328781118273791c633f346c8e248b1c9aedc[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 20:12:17 2018 +0200
+
+    Save task to database
+
+[33mcommit 612c598adcd3527dbe0127b305d9323f833512dc[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 20:04:32 2018 +0200
+
+    Make DateConverter class to convert date(for and from database)
+    including anotiations into AppDatapase as TypeConverters(of this class)
+
+[33mcommit b1a6f1adac059773b3b8e63be374d196a5842235[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 19:57:32 2018 +0200
+
+    Make AppDatabase(create database that use TaskDao and Entity
+    including TaskDao
+
+[33mcommit 980be23926cdf8035024c56c5e0040a62821f6e6[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 19:40:59 2018 +0200
+
+    Make TaskDao interface - Create Dao or Data access object for all entities
+
+[33mcommit 3c2e22eaa578d5b66a6d5b138b91b66bf2993fc7[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 17:50:31 2018 +0200
+
+    Make TaskEntry(POJO - Plain old java object) and convert to Entity
+
+[33mcommit 3cb422aaf97ef3a8069d8f037d5067e51fb2ea26[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 17:00:50 2018 +0200
+
+    Update AddTaskActivity
+    Including logic for RadioGroup and update button(addButton)
+
+[33mcommit 98269d054df3e27c49b9f1b34cb1ba9454975dcb[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 16:27:59 2018 +0200
+
+    Including new Activity AddTaskActivity
+    programing fab button(open AddTaskActivity)
+
+[33mcommit dda030eb7f06cd515609c71f80703e9c64e7c7da[m
+Author: Denis <ka_bum@live.com>
+Date:   Thu Aug 30 15:41:53 2018 +0200
+
+    Start Point
+    including library for Room, Lifecycle, Fab button

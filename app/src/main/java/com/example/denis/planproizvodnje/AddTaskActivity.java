@@ -2,6 +2,7 @@ package com.example.denis.planproizvodnje;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -56,11 +57,12 @@ public class AddTaskActivity extends AppCompatActivity {
                 // Populate the UI
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAOULT_TASK_ID);
 
-                final LiveData<TaskEntry> task = mDb.taskDao().loadTaskById(mTaskId);
-                task.observe(this, new Observer<TaskEntry>() {
+                AddTaskViewModelFactory factory = new AddTaskViewModelFactory(mDb, mTaskId);
+                final AddTaskViewModel viewModel = ViewModelProviders.of(this, factory).get(AddTaskViewModel.class);
+                viewModel.getTask().observe(this, new Observer<TaskEntry>() {
                     @Override
                     public void onChanged(@Nullable TaskEntry taskEntry) {
-                        task.removeObserver(this);
+                        viewModel.getTask().removeObserver(this);
                         Log.d(TAG, "Receiving database update from LiveData");
                         populateUI(taskEntry);
                     }

@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#FF5722</color>
+    <color name="colorPrimaryDark">#E64A19</color>
+    <color name="colorAccent">#FF5722</color>
+    <color name="colorPrimaryLight">#FFCCBC</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="colorDivader">#BDBDBD</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorButton">#607D8B</color>
 
     //colors for priority
-    <color name="colorHighPriority">#FF0000</color>
-    <color name="colorMidiumPriority">#DF7401</color>
-    <color name="colorLowPriority">#F7FE2E</color>
+    <color name="colorHighPriority">#F44336</color>
+    <color name="colorMidiumPriority">#FF9722</color>
+    <color name="colorLowPriority">#FFEB3B</color>
     <color name="textColor">#FFFFFF</color>
+
+    <drawable name="gradient1">@drawable/gradient_high_priority</drawable>
 </resources>

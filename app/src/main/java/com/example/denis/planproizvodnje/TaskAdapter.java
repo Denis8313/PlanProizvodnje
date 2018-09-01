@@ -1,6 +1,7 @@
 package com.example.denis.planproizvodnje;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -8,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.denis.planproizvodnje.database.TaskEntry;
@@ -60,6 +61,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         int priorityShapeColor = getPriorityShapeColor(priority);
         priorityShape.setColor(priorityShapeColor);
+
     }
 
     private int getPriorityShapeColor(int priority) {
@@ -107,6 +109,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         TextView taskDescriptionView;
         TextView updateAtView;
         TextView priorityView;
+        LinearLayout backgroundView;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
@@ -114,6 +117,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             taskDescriptionView = (TextView) itemView.findViewById(R.id.task_description_textview);
             updateAtView = (TextView) itemView.findViewById(R.id.date_textview);
             priorityView = (TextView) itemView.findViewById(R.id.priority_textview);
+            backgroundView = (LinearLayout) itemView.findViewById(R.id.backgroungLinearLayout);
 
             itemView.setOnClickListener(this);
         }

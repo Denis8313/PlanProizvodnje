@@ -11,16 +11,19 @@
     <EditText
         android:id="@+id/task_edit_text"
         android:inputType="text"
-        android:paddingTop="8dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp"
         android:cursorVisible="false"
         android:hint="@string/new_task_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        style="@style/editTextStyle"/>
 
     <TextView
         android:paddingTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textStyle="italic|bold"
         android:text="@string/taskPriority"/>
 
     <RadioGroup
@@ -35,24 +38,31 @@
             android:id="@+id/high_priority"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="46dp"
+            android:layout_height="50dp"
             android:background="@color/colorHighPriority"
+            android:textColor="@color/textColor"
+            android:checked="true"
+            android:theme="@style/WhiteRadioButton"
             android:text="@string/high_priority"/>
 
         <RadioButton
             android:id="@+id/medium_priority"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="46dp"
+            android:layout_height="50dp"
+            android:textColor="@color/textColor"
             android:background="@color/colorMidiumPriority"
+            android:theme="@style/WhiteRadioButton"
             android:text="@string/medium_priority"/>
 
         <RadioButton
             android:id="@+id/low_priority"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="46dp"
+            android:layout_height="50dp"
+            android:textColor="@color/textColor"
             android:background="@color/colorLowPriority"
+            android:theme="@style/WhiteRadioButton"
             android:text="@string/low_priority"/>
 
     </RadioGroup>
@@ -61,6 +71,8 @@
         android:id="@+id/add_task_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_task_button"/>
+        android:text="@string/add_task_button"
+        android:background="@color/colorButton"
+        android:textColor="@color/textColor"/>
 
 </LinearLayout>

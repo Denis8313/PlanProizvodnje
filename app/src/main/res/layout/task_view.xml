@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/backgroungLinearLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.denis.planproizvodnje.MainActivity">
+    tools:context="com.example.denis.planproizvodnje.MainActivity"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="0dp"
+        android:layout_weight="4"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:paddingLeft="16dp"
         android:orientation="vertical">
 
         <TextView
@@ -17,6 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="top"
+            android:textStyle="bold|italic"
+            android:textSize="18sp"
+            android:paddingBottom="8dp"
             tools:text="Opis zadatka" />
 
         <TextView
@@ -24,14 +32,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="12dp"
             tools:text="12.12.2012" />
     </LinearLayout>
 
     <LinearLayout
         android:paddingRight="16dp"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_height="match_parent"
         android:gravity="end|center">
 
         <TextView

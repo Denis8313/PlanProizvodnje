@@ -2,7 +2,7 @@
     <string name="app_name">Plan Proizvodnje</string>
     
     //strings for priority
-    <string name="taskPriority">Odaberi razinu prioriteta za upisani zadatak</string>
+    <string name="taskPriority">Odaberi razinu prioriteta za upisani zadatak:</string>
     <string name="high_priority">Visoka razina</string>
     <string name="medium_priority">Srednja razina</string>
     <string name="low_priority">Niska razina</string>
